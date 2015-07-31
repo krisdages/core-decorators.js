@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "babel --stage 0 --out-dir lib src",
-    "test": "npm run build && mocha --require babel/polyfill 'lib/**/*.spec.js'"
+    "test": "mocha --compilers js:babel/register 'src/**/*.spec.js'"
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/jayphelps/core-decorators.js",
   "devDependencies": {
-    "babel": "^5.4.7",
+    "babel": "^5.8.19",
     "chai": "^3.2.0",
     "mocha": "^2.2.5",
     "sinon": "^1.15.4",

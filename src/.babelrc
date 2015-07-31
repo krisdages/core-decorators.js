@@ -1,4 +1,6 @@
 {
+	"stage": 0,
+	"sourceMaps": true,
 	"optional": [
 		"es7.decorators"
 	]
