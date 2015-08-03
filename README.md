@@ -53,9 +53,9 @@ getPerson() === person;
 // true
 ```
 
-### @readonly
+### @readonly (alias: @ro)
 
-Marks a property or method as not being writable.
+Marks a property or method as being writable.
 
 ```js
 import { readonly } from 'core-decorators';

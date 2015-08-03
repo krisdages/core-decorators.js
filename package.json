@@ -10,7 +10,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "babel --stage 0 --out-dir lib src",
+    "build": "babel --out-dir lib src",
     "test": "mocha --compilers js:babel/register 'src/**/*.spec.js'"
   },
   "repository": {
@@ -41,5 +41,13 @@
     "mocha": "^2.2.5",
     "sinon": "^1.15.4",
     "sinon-chai": "^2.8.0"
-  }
+  },
+  "babel": {
+  "stage": 0,
+  "sourceMaps": true,
+  "optional": [
+    "es7.decorators"
+  ]
+
+}
 }

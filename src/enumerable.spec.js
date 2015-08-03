@@ -1,32 +1,32 @@
 import chai from 'chai';
-import method from './test/mock-method';
 const should = chai.should();
+import prop from './test/property-mock';
 
 import {enumerable, nonenumerable} from './core-decorators';
 
 // ===================================================================
-const testFalse = (o,d,n) => d.enumerable.should.equal(false);
-const testTrue = (o,d,n) => d.enumerable.should.equal(true);
+const testFalse = d => d.enumerable.should.be.false;
+const testTrue = d => d.enumerable.should.be.true;
 
-const methods = [
-  method(enumerable, "defines a property as enumerable by default", testTrue),
-  method(enumerable(true), "defines a property as enumerable when true passed", testTrue),
-  method(enumerable(false), "defines a property as nonenumerable when false passed", testFalse),
-  method(nonenumerable, "enumerable(false) is aliased as nonenumerable", testFalse)
+const props = [
+  prop(enumerable).that("defines a property as enumerable by default", testTrue),
+  prop(enumerable(true)).that("defines a property as enumerable when true passed", testTrue),
+  prop(enumerable(false)).that("defines a property as nonenumerable when false passed", testFalse),
+  prop(nonenumerable).that("@enumerable(false) is aliased as @onenumerable", testFalse)
 ];
 
 class Foo {
-  @(methods[0].decorator); [methods[0].name]() { }
-  @(methods[1].decorator); [methods[1].name]() { }
-  @(methods[2].decorator); [methods[2].name]() { }
-  @(methods[3].decorator); [methods[3].name]() { }
+  @(props[0].decorator); [props[0].name]() { }
+  @(props[1].decorator); [props[1].name]() { }
+  @(props[2].decorator); [props[2].name]() { }
+  @(props[3].decorator); [props[3].name]() { }
 }
 
 // ===================================================================
 
 describe('enumerable', function () {
   let foo = Object.getPrototypeOf(new Foo());
-  for (let m of methods) {
-    it(m.description, m.run(foo));
+  for (let p of props) {
+    it(p.description, p.run(foo));
   }
 }); 

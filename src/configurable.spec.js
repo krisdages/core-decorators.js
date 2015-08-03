@@ -1,32 +1,32 @@
 import chai from 'chai';
-import method from './test/mock-method';
 const should = chai.should();
+import prop from './test/property-mock';
 
 import {configurable, nonconfigurable} from './core-decorators';
 
 // ===================================================================
-const testFalse = (o,d,n) => d.configurable.should.equal(false);
-const testTrue = (o,d,n) => d.configurable.should.equal(true);
+const testFalse = d => d.configurable.should.be.false;
+const testTrue = d => d.configurable.should.be.true;
 
-const methods = [
-  method(configurable, "defines a property as configurable by default", testTrue),
-  method(configurable(true), "defines a property as configurable when true passed", testTrue),
-  method(configurable(false), "defines a property as nonconfigurable when false passed", testFalse),
-  method(nonconfigurable, "configurable(false) is aliased as nonconfigurable", testFalse)
+const props = [
+  prop(configurable).that("defines a property as configurable by default", testTrue),
+  prop(configurable(true)).that("defines a property as configurable when true passed", testTrue),
+  prop(configurable(false)).that("defines a property as nonconfigurable when false passed", testFalse),
+  prop(nonconfigurable).that("@configurable(false) is aliased as @nonconfigurable", testFalse)
 ];
 
 class Foo {
-  @(methods[0].decorator); [methods[0].name]() { }
-  @(methods[1].decorator); [methods[1].name]() { }
-  @(methods[2].decorator); [methods[2].name]() { }
-  @(methods[3].decorator); [methods[3].name]() { }
+  @(props[0].decorator); [props[0].name]() { }
+  @(props[1].decorator); [props[1].name]() { }
+  @(props[2].decorator); [props[2].name]() { }
+  @(props[3].decorator); [props[3].name]() { }
 }
 
 // ===================================================================
 
 describe('configurable', function () {
   let foo = Object.getPrototypeOf(new Foo());
-  for (let m of methods) {
-    it(m.description, m.run(foo));
+  for (let p of props) {
+    it(p.description, p.run(foo));
   }
 }); 

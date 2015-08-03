@@ -1,7 +1,7 @@
 import { decorate } from './private/utils';
 
-function handleDescriptor(target, key, descriptor) {
-  descriptor.writable = false;
+function handleDescriptor(target, key, descriptor, [isReadonly = true]) {
+  descriptor.writable = !isReadonly;
   return descriptor;
 }
 
